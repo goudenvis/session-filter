@@ -8,5 +8,16 @@
             "email": "me@goudenvis.nl"
         }
     ],
-    "require": {}
+    "require": {},
+
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Goudenvis\\SessionFilter"
+            ],
+            "aliases": {
+                "Filter": "Goudenvis\\SessionFilter"
+            }
+        }
+    }
 }
