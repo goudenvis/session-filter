@@ -1,0 +1,12 @@
+{
+    "name": "goudenvis/session-filter",
+    "description": "A neath class to easily use the Laravel session to filter options",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Goudenvis",
+            "email": "me@goudenvis.nl"
+        }
+    ],
+    "require": {}
+}
