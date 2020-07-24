@@ -12,9 +12,6 @@
 
     "extra": {
         "laravel": {
-            "providers": [
-                "Goudenvis\\SessionFilter\\SessionFilterServiceProvider"
-            ],
             "aliases": {
                 "Filter": "Goudenvis\\SessionFilter\\Filter"
             }
