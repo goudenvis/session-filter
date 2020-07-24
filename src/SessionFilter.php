@@ -30,7 +30,7 @@ class SessionFilter
      *
      */
 
-    protected static function getFilter($key): array
+    public static function getFilter($key): array
     {
         if ( self::hasFilter($key) )
         {
@@ -39,7 +39,7 @@ class SessionFilter
         return [];
     }
 
-    protected static function setFilter($key, $data): void
+    public static function setFilter($key, $data): void
     {
         session(self::$search . $key, $data);
     }
