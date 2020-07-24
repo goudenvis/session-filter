@@ -2,9 +2,9 @@
 
 namespace Goudenvis\SessionFilter;
 
-class SessionFilter
+class Filter
 {
-    public static $search = 'search';
+    protected static $search = 'search';
 
     /**
      * @param $key
