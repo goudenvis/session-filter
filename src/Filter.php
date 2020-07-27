@@ -23,12 +23,12 @@ class Filter
 
     /**
      * @param $key
-     * @return array
+     * @return mixed
      *
      * Get the data from the session. Even if it is not set
      *
      */
-    public static function getFilter($key): array
+    public static function getFilter($key)
     {
         if ( self::hasFilter($key) )
         {
