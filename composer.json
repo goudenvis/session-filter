@@ -1,7 +1,7 @@
 {
     "name": "goudenvis/session-filter",
     "description": "A neath class to easily use the Laravel session to filter options",
-    "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Goudenvis",
@@ -22,5 +22,7 @@
                 "Filter": "Goudenvis\\SessionFilter\\Filter"
             }
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
