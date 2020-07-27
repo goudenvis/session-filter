@@ -45,7 +45,7 @@ class Filter
      */
     public static function setFilter($key, $data): void
     {
-        session(self::$search . $key, $data);
+        session()->put(self::$search . $key, $data);
     }
 
     /**
