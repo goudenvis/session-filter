@@ -48,17 +48,33 @@ class Filter
         session(self::$search . $key, $data);
     }
 
+    /**
+     * @return array
+     *
+     * Get daterange from the previous daterange according to the
+     * daterange witch is set in the session.
+     */
+    public static function getPreviousDaterange(): array
+    {
+        $originalDates = self::applyFilterDaterange();
+        $endDate = Carbon::parse($originalDates[0])->subDay();
+        $startDate = $endDate->copy();
+        $startDate->subDays(count($originalDates));
+
+        return self::makeDaterangeFromDates($startDate, $endDate);
+    }
 
     /**
      * @param bool $fullWeeks
      * @return array
+     *
+     * Get the daterange from the session.
      */
     public static function applyFilterDaterange($fullWeeks = false)
     {
         if (self::hasFilter('daterange')) {
             $startDate = self::getFilter('daterange.start');
-            $startDate = session('search.daterange.start');
-            $endDate = session('search.daterange.end');
+            $endDate = self::getFilter('daterange.end');
         } else {
             $startDate = now()->subMonth();
             $endDate = now()->endOfDay();
