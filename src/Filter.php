@@ -13,8 +13,7 @@ class Filter
      * Check if the session contains the requested key
      *
      */
-
-    protected static function hasFilter($key): bool
+    public static function hasFilter($key): bool
     {
         return (
             !empty(session(self::$search)) &&
@@ -29,7 +28,6 @@ class Filter
      * Get the data from the session. Even if it is not set
      *
      */
-
     public static function getFilter($key): array
     {
         if ( self::hasFilter($key) )
@@ -39,6 +37,12 @@ class Filter
         return [];
     }
 
+    /**
+     * @param $key
+     * @param $data
+     *
+     * Set the filter in the session
+     */
     public static function setFilter($key, $data): void
     {
         session(self::$search . $key, $data);

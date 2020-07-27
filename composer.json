@@ -22,7 +22,5 @@
                 "Filter": "Goudenvis\\SessionFilter\\Filter"
             }
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
