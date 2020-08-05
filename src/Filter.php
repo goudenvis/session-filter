@@ -3,6 +3,7 @@
 namespace Goudenvis\SessionFilter;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 
 class Filter
@@ -96,27 +97,34 @@ class Filter
      * Get a array with dates between the given dates,
      * including the given dates itself.
      */
-    public static function makeDaterangeFromDates(Carbon $startdate, Carbon $enddate): array
+    public static function makeDaterangeFromDates(Carbon $startdate, Carbon $enddate, $parsed = false): array
     {
-        return self::makeDaterange($startdate->diffInDays($enddate), $enddate);
+        return self::makeDaterange($startdate->diffInDays($enddate), $enddate, $parsed);
     }
 
     /**
-     * @param int $days
-     * @param null $startDate
-     * @return array
-     *
      * Make a daterange from numbers.
      * On default start today, and get back 7 days
+     * Make individual Carbon instances when $parsed is true
+     *
+     * @param int $days
+     * @param null $startDate
+     * @param bool $parsed
+     * @return array
+     *
      */
-    public static function makeDaterange($days = 7, $startDate = null): array
+    public static function makeDaterange($days = 7, $startDate = null, $parsed = false): array
     {
         $collect = [];
         $date = $startDate ?? Carbon::today();
 
         for ($i=self::dateRange($days); $i >= 0; $i--){
             $useDate = $date->copy();
-            $collect[] = $useDate->subDays($i)->toDateString();
+            if ($parsed) {
+                $collect[] = $useDate->subDays($i);
+            } else {
+                $collect[] = $useDate->subDays($i)->toDateString();
+            }
         }
         return $collect;
     }
@@ -130,5 +138,23 @@ class Filter
     protected static function dateRange($days = 30): int
     {
         return Carbon::today()->subDays($days)->diffInDays(Carbon::today());
+    }
+
+    /**
+     * Apply column keys direct from the session
+     *
+     * @param Builder $query
+     * @param array $keys
+     * @return Builder
+     */
+    protected static function applyFilters(Builder $query, $keys = [])
+    {
+        foreach ($keys as $key => $column)
+        {
+            if (self::hasFilter($key)) {
+                $query->whereIn($column, self::getFilter($key));
+            }
+        }
+        return $query;
     }
 }
