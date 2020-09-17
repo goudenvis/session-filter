@@ -20,7 +20,7 @@
     "extra": {
         "laravel": {
             "aliases": {
-                "Filter": "Goudenvis\\SessionFilter\\Filter"
+                "Filter": "Fetcher"
             }
         }
     }

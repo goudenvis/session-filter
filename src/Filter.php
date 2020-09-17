@@ -103,6 +103,34 @@ class Filter
     }
 
     /**
+     * Make a daterange with the first and last day of the month.
+     *
+     * @param Carbon $startdate
+     * @param Carbon $enddate
+     * @return array
+     */
+    public static function makeMonthDaterangeFromDates(Carbon $startdate, Carbon $enddate)
+    {
+        $startMonth = $startdate->startOfMonth();
+        $endMonth = $enddate->endOfMonth();
+
+        $diff = $startMonth->diffInMonths($endMonth);
+        $result = [];
+        $workdate = $startMonth;
+
+        for ($x = 0; $x <= $diff; $x++) {
+            $start = $workdate->copy();
+
+            $end = $workdate->copy();
+            $start = $start->addMonths($x)->startOfMonth();
+            $end = $end->addMonths($x)->endOfMonth();
+            $result[] = ['start' => $start, 'end' => $end];
+        }
+
+        return $result;
+    }
+
+    /**
      * Make a daterange from numbers.
      * On default start today, and get back 7 days
      * Make individual Carbon instances when $parsed is true
