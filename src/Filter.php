@@ -76,6 +76,10 @@ class Filter
         if (self::hasFilter('daterange')) {
             $startDate = self::getFilter('daterange.start');
             $endDate = self::getFilter('daterange.end');
+
+            if ($endDate->isAfter(today())) {
+                $endDate = today()->endOfDay();
+            }
         } else {
             $startDate = now()->subMonth();
             $endDate = now()->endOfDay();
